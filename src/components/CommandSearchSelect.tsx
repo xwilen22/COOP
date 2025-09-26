@@ -1,4 +1,11 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  SyntheticEvent,
+  ChangeEvent,
+} from "react";
 import { Command } from "../types";
 import clsx from "clsx";
 
@@ -11,7 +18,8 @@ const transformSearchTags = ["Transform", "Convert"];
 const outputSearchTags = ["Get", "Output"];
 
 function CommandSearchSelect({ commands, onSelect }: CommandSearchSelectProps) {
-  const ref = useRef<HTMLInputElement>(null);
+  const availableCommandsSelectRef = useRef<HTMLSelectElement>(null);
+  const commandInputRef = useRef<HTMLInputElement>(null);
 
   const [controlKeyDown, setControlKeyDown] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -68,10 +76,24 @@ function CommandSearchSelect({ commands, onSelect }: CommandSearchSelectProps) {
     [filteredCommands, controlKeyDown, selectedIndex, open]
   );
 
+  function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+    console.log("Select change hello");
+
+    const value = event.target.value;
+    const selectedCommand = commands.find((c) => c.value === value);
+
+    if (selectedCommand !== undefined) {
+      onSelect(selectedCommand);
+      if (availableCommandsSelectRef.current) {
+        availableCommandsSelectRef.current.value = "";
+      }
+    }
+  }
+
   useEffect(() => {
     if (open) {
       setSelectedIndex(0);
-      ref.current?.focus();
+      commandInputRef.current?.focus();
     }
   }, [open]);
 
@@ -108,8 +130,17 @@ function CommandSearchSelect({ commands, onSelect }: CommandSearchSelectProps) {
 
   return (
     <>
-      <select>
-        <option>Select command</option>
+      <select
+        className="w-full"
+        ref={availableCommandsSelectRef}
+        onChange={onSelectChange}
+      >
+        <option value="">Select command (CTRL + b to search)...</option>
+        {commands.map(({ value, label }, index) => (
+          <option key={`option-${value}-${index}`} value={value}>
+            {label}
+          </option>
+        ))}
       </select>
       {open && (
         <div
@@ -121,8 +152,9 @@ function CommandSearchSelect({ commands, onSelect }: CommandSearchSelectProps) {
               <input
                 className="w-full"
                 type="text"
-                ref={ref}
+                ref={commandInputRef}
                 onChange={(event) => setCurrentFilter(event.target.value)}
+                autoFocus
               />
             </div>
             <ol className="bg-amber-100">

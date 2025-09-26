@@ -41,17 +41,14 @@ export function CommandHeader({ onChange, output, error }: CommandHeaderProps) {
 
   return (
     <header className="bg-purple-700 flex flex-row p-2 h-11 sticky top-0 z-50 justify-between items-center">
-      <div className="flex flex-row gap-2 grow w-1/3">
-        <p className="text-white">{output}</p>
+      <div className="flex flex-row gap-4 grow basis-1/3">
+        {error && <p className="text-red-300">{error}</p>}
+        {output && <p className="text-white">{output}</p>}
       </div>
-      <div className="flex justify-items-center w-1/3">
-        <div className="flex">
-          <CommandSearchSelect commands={commands} onSelect={onChange} />
-        </div>
+      <div className="flex justify-center basis-1/3">
+        <CommandSearchSelect commands={commands} onSelect={onChange} />
       </div>
-      <div className="w-1/3">
-        <p className="text-red-300">{error}</p>
-      </div>
+      <div className="basis-1/3" />
     </header>
   );
 }
