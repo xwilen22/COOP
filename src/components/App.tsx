@@ -8,13 +8,17 @@ import { CommandHeader } from "./CommandHeader";
 function App() {
   const [input, setInput] = useState<string>();
   const [output, setOutput] = useState<string>();
-  const [inputError, setInputError] = useState<string>();
+  const [outputIsError, setOutputIsError] = useState<boolean>(false);
 
   async function onCommandSelected({ type, value }: CommandSelection) {
+    setOutputIsError(false);
+    setOutput("");
+
     console.log("Command selected", type, value);
 
     if (typeof input !== "string" || input.length <= 0) {
-      setInputError("No valid input");
+      setOutput("No valid input");
+      setOutputIsError(true);
       return;
     }
     if (type === "transform_input") {
@@ -30,8 +34,8 @@ function App() {
     <main className="w-full h-full">
       <CommandHeader
         onChange={onCommandSelected}
-        error={inputError}
         output={output}
+        outputIsError={outputIsError}
       />
       <TextInput value={input} onChange={setInput} />
     </main>

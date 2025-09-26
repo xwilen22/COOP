@@ -135,7 +135,7 @@ function CommandSearchSelect({ commands, onSelect }: CommandSearchSelectProps) {
         ref={availableCommandsSelectRef}
         onChange={onSelectChange}
       >
-        <option value="">Select command (CTRL + b to search)...</option>
+        <option value="">Select command... (CTRL + b to search)</option>
         {commands.map(({ value, label }, index) => (
           <option key={`option-${value}-${index}`} value={value}>
             {label}
