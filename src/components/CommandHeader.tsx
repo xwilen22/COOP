@@ -45,14 +45,17 @@ export function CommandHeader({
   ];
 
   return (
-    <header className="bg-purple-700 flex flex-row p-2 h-header sticky top-0 z-50 justify-between items-center">
+    <header className="bg-gray-600 border-gray-200 border-b-1 flex flex-row p-2 h-header sticky top-0 z-50 justify-between items-center">
       <div className="flex flex-row gap-4 grow basis-1/3">
         {output && (
           <p
-            className={clsx({
-              ["text-white"]: outputIsError === false,
-              ["text-red-300"]: outputIsError === true,
-            })}
+            className={clsx(
+              {
+                ["text-white bg-blue-800"]: outputIsError === false,
+                ["text-white bg-red-800"]: outputIsError === true,
+              },
+              "m-0 text-center py-0.5 px-4 rounded-2xl shadow"
+            )}
           >
             {output}
           </p>

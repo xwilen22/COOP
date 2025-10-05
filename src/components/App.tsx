@@ -37,7 +37,7 @@ function App() {
         output={output}
         outputIsError={outputIsError}
       />
-      <TextInput />
+      <TextInput value={input} onChange={setInput} />
     </main>
   );
 }

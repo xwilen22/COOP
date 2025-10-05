@@ -1,11 +1,24 @@
 import { Editor } from "@monaco-editor/react";
 
-interface TextInputProps {}
+interface TextInputProps {
+  value?: string;
+  onChange: (value?: string) => void;
+}
 
-function TextInput(props: TextInputProps) {
+function TextInput({ value, onChange }: TextInputProps) {
   return (
     <div className="h-body">
-      <Editor defaultLanguage="javascript" defaultValue="//Test" />
+      <Editor
+        defaultLanguage="markdown"
+        value={value}
+        onChange={onChange}
+        options={{
+          codeLens: false,
+          minimap: {
+            enabled: false,
+          },
+        }}
+      />
     </div>
   );
 }
