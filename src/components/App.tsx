@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
-import TextInput from "./TextInput";
 import { CommandSelection } from "../types";
 import { CommandHeader } from "./CommandHeader";
+import TextInput from "./TextInput";
 
 function App() {
   const [input, setInput] = useState<string>();
@@ -31,13 +31,13 @@ function App() {
   }
 
   return (
-    <main className="w-full h-full">
+    <main className="w-full min-h-screen">
       <CommandHeader
         onChange={onCommandSelected}
         output={output}
         outputIsError={outputIsError}
       />
-      <TextInput value={input} onChange={setInput} />
+      <TextInput />
     </main>
   );
 }

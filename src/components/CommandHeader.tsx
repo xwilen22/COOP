@@ -45,7 +45,7 @@ export function CommandHeader({
   ];
 
   return (
-    <header className="bg-purple-700 flex flex-row p-2 h-11 sticky top-0 z-50 justify-between items-center">
+    <header className="bg-purple-700 flex flex-row p-2 h-header sticky top-0 z-50 justify-between items-center">
       <div className="flex flex-row gap-4 grow basis-1/3">
         {output && (
           <p
