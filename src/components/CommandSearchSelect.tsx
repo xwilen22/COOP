@@ -1,11 +1,4 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  SyntheticEvent,
-  ChangeEvent,
-} from "react";
+import { useRef, useState, useEffect, useCallback, ChangeEvent } from "react";
 import { Command } from "../types";
 import clsx from "clsx";
 
